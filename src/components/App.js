@@ -13,7 +13,7 @@ const provider = new firebase.auth.GoogleAuthProvider();
 const App = () => {
   const [user, loading, error] = useAuthState(firebase.auth());
   if (user) {
-    return <ChatRoom user={user} />;
+    return <ChatRoom user={user} firebase={firebase} />;
   } else if (loading) {
     return <Loading />;
   } else if (error) {
