@@ -1,0 +1,23 @@
+.user-info {
+  align-items: center;
+  background-color: #ededed;
+  display: flex;
+  padding: 10px 5px;
+}
+
+.user-info > img {
+  border-radius: 100%;
+  -webkit-border-radius: 100%;
+  -moz-border-radius: 100%;
+  -ms-border-radius: 100%;
+  -o-border-radius: 100%;
+  margin-right: 10px;
+  width: 40px;
+}
+
+.user-info > span {
+  font-family: Arial, Helvetica, sans-serif;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
