@@ -1,19 +1,25 @@
-import React from "react";
+import React, { useContext, useState, useEffect } from "react";
 import ChatPreview from "./ChatPreview";
-import '../styles/preview-chat-list.css'
+import "../styles/preview-chat-list.css";
+import { UserContext } from "../UserContext";
+import {useRealTimeDataBaseChats} from '../hooks/useRealTimeDataBaseChats'
 
-const Chats = ({ chats }) => {
-  console.log(chats);
+
+const Chats = () => {
+  const { userRef } = useContext(UserContext);
+  const {chats, setChats} = useRealTimeDataBaseChats(userRef);
+
   return (
     <ul className="preview-chat-list">
-      {chats.map(({ id, username, last_message, profile_image }) => (
-        <ChatPreview
-          key={id}
-          avatar={profile_image}
-          last_message={last_message}
-          username={username}
-        />
-      ))}
+      {chats &&
+        chats.map(({ key, username, last_message, profile_picture }) => (
+          <ChatPreview
+            key={key}
+            avatar={profile_picture}
+            last_message={last_message}
+            username={username}
+          />
+        ))}
     </ul>
   );
 };

@@ -12,9 +12,9 @@ const ChatRoom = ({ user, firebase }) => {
   if (data) {
     return (
       <>
-        <UserContext.Provider value={data}>
+        <UserContext.Provider value={{...data, firebase, userRef: ref}}>
           <div className="container__chat-room">
-            <SideChatBar firebase={firebase} />
+            <SideChatBar />
             <Chat />
           </div>
         </UserContext.Provider>

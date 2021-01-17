@@ -30,7 +30,11 @@ export const useRealTimeDataBaseUser = (user, firebase) => {
           }
 
           setState({
-            data: userData,
+            data: {
+              username: userData.username,
+              email: userData.email,
+              profile_picture: userData.profile_picture,
+            },
             loading: false,
             ref: database.ref(`users/${userData.email.replace(".", "-")}`),
           });
