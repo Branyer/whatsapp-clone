@@ -15,6 +15,7 @@ const Chats = () => {
         chats.map(({ key, username, last_message, profile_picture }) => (
           <ChatPreview
             key={key}
+            chatId={key}
             avatar={profile_picture}
             last_message={last_message}
             username={username}
