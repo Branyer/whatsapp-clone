@@ -30,3 +30,29 @@ export const getUserData = (database, id) => {
 export const setNewUser = (database, userData) => {
   database.ref(`users/${userData.email.replace(".", "-")}`).set(userData);
 };
+
+
+export const handleFocus = (e) => {
+  e.target.placeholder = "";
+  const div = document.querySelector(".container__search-arrow");
+  const arrow = document.querySelector(".arrow-down");
+  arrow.classList.remove("arrow-down")
+  arrow.classList.add("arrow-left")
+  div.classList.remove("not-visible");
+  div.style.zIndex = '50';
+  div.classList.add("visible");
+};
+
+export const handleBlur = (e) => {
+  e.target.placeholder = "Search user by email to start a new chat";
+
+  const div = document.querySelector(".container__search-arrow");
+  const arrow = document.querySelector(".arrow-left");
+  arrow.classList.remove("arrow-left")
+  arrow.classList.add("arrow-down")
+  div.classList.remove("visible");
+  div.classList.add("not-visible");
+  setTimeout(() => {
+    div.style.zIndex = '-1';
+  }, 300);
+};
