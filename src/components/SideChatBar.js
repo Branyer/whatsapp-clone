@@ -4,7 +4,7 @@ import SearchUser from "./SearchUser";
 import Chats from "./Chats";
 import "../styles/chat-list.css";
 
-const SideChatBar = () => {
+const SideChatBar = ({setSelectedChat}) => {
   //TODO estado compartido entre SearchUser y Chats donde se ven los chats que hacen match con la busqueda
   //tanto con los que no se ha empezado un chat (buscar usuarios de firebase) como con los que ya tienen chat (data.chats)
 
@@ -12,7 +12,7 @@ const SideChatBar = () => {
     <div className="container__chat-list">
       <UserInfo />
       <SearchUser />
-      <Chats  />
+      <Chats setSelectedChat={setSelectedChat} />
     </div>
   );
 };

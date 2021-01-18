@@ -2,7 +2,7 @@ import React, {useContext} from 'react'
 import '../styles/chat-preview.css'
 import {UserContext} from '../UserContext'
 
-const ChatPreview = ({chatId, avatar, last_message, username}) => {
+const ChatPreview = ({chatId, avatar, last_message, username, onClick}) => {
 
     const { firebase } = useContext(UserContext);
 
@@ -15,7 +15,7 @@ const ChatPreview = ({chatId, avatar, last_message, username}) => {
     //   });
 
     return (
-        <li className="chat-preview">
+        <li className="chat-preview" onClick={onClick}>
             <img alt={username} src={avatar}></img>
             <div>
                 <span>{username}</span>

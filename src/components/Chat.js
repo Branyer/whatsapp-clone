@@ -1,31 +1,127 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import whatsappSVG from "../images/whatsapp-icon.svg";
 import "../styles/chat.css";
 import sendSVG from "../images/send.svg";
+import { UserContext } from "../UserContext";
 
-const Chat = () => {
-  //TODO manejar el cambio de chat
+const sendMessage = (
+  uId,
+  message,
+  timestamp,
+  username,
+  profile_picture,
+  chatId,
+  chatProfilePicture,
+  partnerId,
+  partnerUsername,
+  firebase
+) => {
+  if (!message) return;
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("sending message...");
+  const chatMessage = {
+    uId,
+    message,
+    timestamp,
+    username,
+    profile_picture,
+    read: true,
   };
 
-  if (true) {
+  //TODO cambiar esto para las notificaciones (update)
+  const lastMessage = {
+    last_message: message,
+    profile_picture: chatProfilePicture,
+    timestamp,
+    unreadMessages: 0,
+    username: partnerUsername,
+    partnerId,
+  };
+
+  const lastMessagePartner = {
+    last_message: message,
+    profile_picture: profile_picture,
+    timestamp,
+    unreadMessages: 0,
+    username: username,
+    partnerId: uId,
+  };
+
+  const newMessageId = firebase
+    .database()
+    .ref(`chats/${chatId}/messages`)
+    .push().key;
+
+  let updates = {};
+  updates[`chats/${chatId}/messages/${newMessageId}`] = chatMessage;
+  updates[`users/${uId}/chats/${chatId}`] = lastMessage;
+  updates[`users/${partnerId}/chats/${chatId}`] = lastMessagePartner;
+
+  return firebase.database().ref().update(updates);
+};
+
+const Chat = ({ selectedChat }) => {
+  //TODO manejar el cambio de chat
+
+  const [message, setMessage] = useState("");
+  const { email, username, profile_picture, firebase } = useContext(
+    UserContext
+  );
+
+  const handleSubmit = (
+    e,
+    chatId,
+    chatProfilePicture,
+    partnerId,
+    chatUserName
+  ) => {
+    e.preventDefault();
+    sendMessage(
+      email.replace(".", "-"),
+      message.trim(),
+      Math.floor(Date.now() / 1000),
+      username,
+      profile_picture,
+      chatId,
+      chatProfilePicture,
+      partnerId,
+      chatUserName,
+      firebase
+    );
+
+    setMessage("");
+  };
+
+  if (selectedChat) {
+    const {
+      key: chatId,
+      username: chatUserName,
+      profile_picture: chatProfilePicture,
+      partnerId,
+    } = selectedChat;
+
     return (
       <div className="chat">
         <div className="chat__user-info">
           <img
             alt="profile"
-            title="Branyer Vergara"
-            src="https://lh3.googleusercontent.com/a-/AOh14GjVNbyyG2pveGFxP3ALA3q_t9k4faNhjoUEOuoK2A=s96-c"
+            title={chatUserName}
+            src={chatProfilePicture}
           ></img>
-          <span>Branyer Vergara</span>
+          <span>{chatUserName}</span>
         </div>
-        {/* https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png */}
         <div className="chat__messages"></div>
-        <form className="chat__input-message" onSubmit={(e) => handleSubmit(e)}>
-          <input type="text" placeholder="Type a message" />
+        <form
+          className="chat__input-message"
+          onSubmit={(e) =>
+            handleSubmit(e, chatId, chatProfilePicture, partnerId, chatUserName)
+          }
+        >
+          <input
+            type="text"
+            placeholder="Type a message"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+          />
           <input
             type="submit"
             value=""
