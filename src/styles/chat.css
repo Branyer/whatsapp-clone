@@ -63,6 +63,9 @@
     background-repeat: repeat;
     background-size: 500px;
     flex-basis: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
 }
 
