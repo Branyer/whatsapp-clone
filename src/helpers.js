@@ -4,20 +4,20 @@ export const signInWithGoogleAccount = (firebase, provider) => {
     .signInWithPopup(provider)
     .then(function (result) {
       // This gives you a Google Access Token. You can use it to access the Google API.
-      var token = result.credential.accessToken;
-      // The signed-in user info.
-      var user = result.user;
+      // var token = result.credential.accessToken;
+      // // The signed-in user info.
+      // var user = result.user;
       // ...
       //TODO validar si el usuario está o no en la base de datos, si está cargar los datos si no crearlo
     })
     .catch(function (error) {
       // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      // The email of the user's account used.
-      var email = error.email;
-      // The firebase.auth.AuthCredential type that was used.
-      var credential = error.credential;
+      // var errorCode = error.code;
+      // var errorMessage = error.message;
+      // // The email of the user's account used.
+      // var email = error.email;
+      // // The firebase.auth.AuthCredential type that was used.
+      // var credential = error.credential;
       console.log(error);
       // ...
     });
@@ -65,7 +65,8 @@ export const sendMessage = (
   chatProfilePicture,
   partnerId,
   partnerUsername,
-  firebase
+  firebase,
+  setSelectedChat
 ) => {
   if (!message) return;
 
@@ -109,6 +110,7 @@ export const sendMessage = (
       .push().key;
 
     updates[`chats/${newChatId}`] = newChat;
+    // setSelectedChat({ key: newChatId, partnerUsername, chatProfilePicture, partnerId })
     firebase.database().ref().update(updates).then((e) => {
 
       let updates={};
@@ -136,7 +138,8 @@ export const handleSubmitMessage = (
   selectedChat,
   context,
   setMessage,
-  message
+  message,
+  setSelectedChat
 ) => {
   e.preventDefault();
   sendMessage(
@@ -149,7 +152,8 @@ export const handleSubmitMessage = (
     selectedChat.profile_picture,
     selectedChat.partnerId,
     selectedChat.username,
-    context.firebase
+    context.firebase,
+    setSelectedChat
   );
 
   setMessage("");

@@ -13,6 +13,8 @@
   -o-transition: background-color 0.3s ease;
 }
 
+
+
 .chat-preview:hover {
   background-color: rgb(240, 240, 240);
 }
@@ -27,7 +29,7 @@
   margin-right: 13px;
 }
 
-.chat-preview > div {
+.chat-preview__info_user {
   display: flex;
   flex-direction: column;
   border-bottom: 1px solid rgb(230, 228, 228);
@@ -35,7 +37,7 @@
   width: calc(450px - 75px);
 }
 
-.chat-preview > div > span {
+.chat-preview__info_user > span {
   font-family: Arial, Helvetica, sans-serif;
   margin: 3px;
   overflow: hidden;
@@ -43,9 +45,20 @@
   white-space: nowrap;
 }
 
-.chat-preview > div > span:nth-child(2) {
+.chat-preview__info_user > span:nth-child(2) {
   color: gray;
   font-size: 15px;
   padding-bottom: 1px;
   width: 80%;
+}
+
+@media screen and (max-width:760px) {
+
+  .chat-preview {
+      width: 100vw;
+  }
+
+  .chat-preview__info_user {
+    width: calc(100vw - 65px);
+  }
 }

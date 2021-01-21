@@ -5,18 +5,19 @@ import ChatMessages from "./ChatMessages";
 import InputMessage from "./InputMessage";
 import PartnerChatInfo from "./PartnerChatInfo";
 
-const Chat = ({ selectedChat }) => {
+const Chat = ({ selectedChat, setSelectedChat}) => {
   const [message, setMessage] = useState("");
 
   if (selectedChat) {
     return (
       <div className="chat">
         <PartnerChatInfo selectedChat={selectedChat} />
-        <ChatMessages selectedChat={selectedChat} />
+        <ChatMessages selectedChat={selectedChat}  />
         <InputMessage
           message={message}
           setMessage={setMessage}
           selectedChat={selectedChat}
+          setSelectedChat={setSelectedChat}
         />
       </div>
     );

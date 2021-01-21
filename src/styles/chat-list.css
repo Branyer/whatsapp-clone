@@ -1,4 +1,10 @@
 .container__chat-list {
-    border-right: 1px solid rgb(206, 203, 203);
-    height: 100vh;
+  border-right: 1px solid rgb(206, 203, 203);
+  height: 100vh;
+}
+
+@media screen and (max-width: 760px) {
+  .container__chat-list {
+    border: none;
+  }
 }

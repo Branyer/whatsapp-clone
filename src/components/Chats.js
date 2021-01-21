@@ -1,7 +1,15 @@
-import React, { useRef, useEffect } from "react";
+import React, { useEffect } from "react";
 import ChatPreview from "./ChatPreview";
 import "../styles/preview-chat-list.css";
 
+const handleClick = ({target}) => {
+
+ const chat = document.querySelector('.chat')
+  
+ if(chat) chat.style.zIndex = '100';
+  
+
+};
 const Chats = ({ setSelectedChat, chats, setChats, userRef }) => {
   useEffect(() => {
     userRef.child("chats").on("child_changed", (message) => {
@@ -26,20 +34,25 @@ const Chats = ({ setSelectedChat, chats, setChats, userRef }) => {
       })
       .then((count) => {
         userRef.child("chats").on("child_added", (chat) => {
-          console.log(count);
           if (count > 0) {
             count--;
             return;
           }
 
-            let auxChat = { key: chat.key };
+          let auxChat = { key: chat.key };
+          
+          chat.forEach((p) => {
+            auxChat[p.key] = p.val();
+          });
 
-            chat.forEach((p) => {
-              chat[p.key] = p.val();
-            });
+          console.log(auxChat)
 
-
-            setChats((actChats) => [auxChat,...actChats]);
+          if(chats[0].key === "new-chat"){
+            setChats([auxChat]);
+            setSelectedChat(auxChat);
+          } else {
+            setChats((actChats) => [auxChat, ...actChats]);
+          }
 
         });
 
@@ -57,9 +70,10 @@ const Chats = ({ setSelectedChat, chats, setChats, userRef }) => {
         chats.map(
           ({ key, username, last_message, profile_picture, partnerId }) => (
             <ChatPreview
-              onClick={(e) =>
-                setSelectedChat({ key, username, profile_picture, partnerId })
-              }
+              onClick={(e) => {
+                setSelectedChat({ key, username, profile_picture, partnerId });
+                handleClick(e);
+              }}
               key={key}
               chatId={key}
               avatar={profile_picture}

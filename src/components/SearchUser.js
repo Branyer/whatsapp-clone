@@ -9,7 +9,7 @@ import { getChats } from "../helpers";
 const searchUser = (e, query, chats, setChats, firebase) => {
   e.preventDefault();
 
-  const auxQuery = query.replace(".", "-");
+  const auxQuery = query.replace(".", "-").toLowerCase();
 
   let index = chats.findIndex((c) => c?.partnerId === auxQuery);
 
@@ -18,14 +18,12 @@ const searchUser = (e, query, chats, setChats, firebase) => {
       .database()
       .ref("users")
       .orderByChild("email")
-      .equalTo(query)
+      .equalTo(query.toLowerCase())
       .once("value", (snap) => {
-        setChats([{...snap.val()[auxQuery], key:'new-chat', last_message:"Start a new chat", partnerId:auxQuery}])
-        // selectedChat.key,
-        // selectedChat.profile_picture,
-        // selectedChat.partnerId,
-        // selectedChat.username,
-
+        if(snap.val()) {
+          setChats([{...snap.val()[auxQuery], key:'new-chat', last_message:"Start a new chat", partnerId:auxQuery}])
+        }
+       
       });
   } else setChats([chats[index]]);
 };
@@ -39,7 +37,7 @@ const SearchUser = ({ chats, setChats }) => {
     if (query === "") {
       getChats(userRef, setChats);
     }
-  }, [query]);
+  }, [query, setChats, userRef]);
 
   return (
     <div className="search-user">
