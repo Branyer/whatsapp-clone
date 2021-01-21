@@ -1,0 +1,44 @@
+
+.sign-in--button {
+    align-items: center;
+    background-color: #07bc4c;
+    border: 0;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    display:flex;
+    font-weight: bold;
+    font-size: 15px;
+    justify-content: space-between;
+    outline: 0;
+    padding: 20px 30px;
+    transition: all ease .5s;
+    -webkit-transition: all ease .5s;
+    -moz-transition: all ease .5s;
+    -ms-transition: all ease .5s;
+    -o-transition: all ease .5s;
+}
+
+.sign-in--button > img {
+    background-color: white;
+    border-radius: 3px;
+    height: 25px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    margin-right: 5px;
+    padding: 3px;
+}
+
+.sign-in--button:hover {
+    transform: scale(.97);
+    -webkit-transform: scale(.97);
+    -moz-transform: scale(.97);
+    -ms-transform: scale(.97);
+    -o-transform: scale(.97);
+}

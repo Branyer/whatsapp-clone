@@ -1,0 +1,4 @@
+.container__chat-room {
+    display: grid;
+    grid-template-columns: 450px  1fr;
+}
