@@ -2,7 +2,6 @@ import React, {useContext} from 'react'
 import {UserContext} from "../UserContext"
 import '../styles/user-info.css'
 import logoutSVG from '../images/logout.svg'
-
 const UserInfo = () => {
     const context = useContext(UserContext);
     return (

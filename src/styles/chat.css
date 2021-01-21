@@ -66,8 +66,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
+    z-index: 0;
+    overflow-y: auto;
+    padding-bottom: 10px;
 
 }
+
 
 .chat__input-message {
 

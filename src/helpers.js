@@ -35,8 +35,8 @@ export const handleFocus = (e) => {
   e.target.placeholder = "";
   const div = document.querySelector(".container__search-arrow");
   const arrow = document.querySelector(".arrow-down");
-  arrow.classList.remove("arrow-down");
-  arrow.classList.add("arrow-left");
+  arrow?.classList.remove("arrow-down");
+  arrow?.classList.add("arrow-left");
   div.classList.remove("not-visible");
   div.style.zIndex = "50";
   div.classList.add("visible");
@@ -44,11 +44,10 @@ export const handleFocus = (e) => {
 
 export const handleBlur = (e) => {
   e.target.placeholder = "Search user by email to start a new chat";
-
   const div = document.querySelector(".container__search-arrow");
   const arrow = document.querySelector(".arrow-left");
-  arrow.classList.remove("arrow-left");
-  arrow.classList.add("arrow-down");
+  arrow?.classList.remove("arrow-left");
+  arrow?.classList.add("arrow-down");
   div.classList.remove("visible");
   div.classList.add("not-visible");
   setTimeout(() => {
@@ -79,7 +78,6 @@ export const sendMessage = (
     read: true,
   };
 
-  //TODO cambiar esto para las notificaciones (update)
   const lastMessage = {
     last_message: message,
     profile_picture: chatProfilePicture,
@@ -97,18 +95,40 @@ export const sendMessage = (
     username: username,
     partnerId: uId,
   };
-
-  const newMessageId = firebase
-    .database()
-    .ref(`chats/${chatId}/messages`)
-    .push().key;
-
   let updates = {};
-  updates[`chats/${chatId}/messages/${newMessageId}`] = chatMessage;
-  updates[`users/${uId}/chats/${chatId}`] = lastMessage;
-  updates[`users/${partnerId}/chats/${chatId}`] = lastMessagePartner;
+  if (chatId === "new-chat") {
+    const newChatId = firebase.database().ref("chats").push().key;
 
-  return firebase.database().ref().update(updates);
+    const newChat = {};
+    newChat[partnerId] = true;
+    newChat[uId] = true;
+
+    const newMessageId = firebase
+      .database()
+      .ref(`chats/${newChatId}/messages`)
+      .push().key;
+
+    updates[`chats/${newChatId}`] = newChat;
+    firebase.database().ref().update(updates).then((e) => {
+
+      let updates={};
+
+      updates[`chats/${newChatId}/messages/${newMessageId}`] = chatMessage;
+      updates[`users/${uId}/chats/${newChatId}`] = lastMessage;
+      updates[`users/${partnerId}/chats/${newChatId}`] = lastMessagePartner;
+      firebase.database().ref().update(updates)
+    })
+  } else {
+    const newMessageId = firebase
+      .database()
+      .ref(`chats/${chatId}/messages`)
+      .push().key;
+
+    updates[`chats/${chatId}/messages/${newMessageId}`] = chatMessage;
+    updates[`users/${uId}/chats/${chatId}`] = lastMessage;
+    updates[`users/${partnerId}/chats/${chatId}`] = lastMessagePartner;
+    firebase.database().ref().update(updates);
+  }
 };
 
 export const handleSubmitMessage = (
@@ -122,7 +142,7 @@ export const handleSubmitMessage = (
   sendMessage(
     context.email.replace(".", "-"),
     message.trim(),
-    Math.floor(Date.now() / 1000),
+    Math.floor(Date.now()),
     context.username,
     context.profile_picture,
     selectedChat.key,
@@ -133,4 +153,21 @@ export const handleSubmitMessage = (
   );
 
   setMessage("");
+};
+
+export const getChats = (ref, setChats) => {
+  ref
+    .child("chats")
+    .orderByChild("timestamp")
+    .once("value")
+    .then((snapshot) => {
+      const values = [];
+      snapshot.forEach((element) => {
+        values.push({ ...element.val(), key: element.key });
+      });
+
+      setChats(Array.from(values.reverse()));
+      return 1;
+    })
+    .catch((error) => console.log(error));
 };

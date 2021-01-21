@@ -12,7 +12,7 @@ const Chat = ({ selectedChat }) => {
     return (
       <div className="chat">
         <PartnerChatInfo selectedChat={selectedChat} />
-        <ChatMessages chatId={selectedChat.key} />
+        <ChatMessages selectedChat={selectedChat} />
         <InputMessage
           message={message}
           setMessage={setMessage}

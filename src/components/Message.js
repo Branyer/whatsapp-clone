@@ -1,20 +1,14 @@
 import React from "react";
 import "../styles/message.css";
 
-const SelfMessage = ({ children, self }) => {
-  if (self) {
+const SelfMessage = ({ children, self, first }) => {
+
     return (
-      <div className="message self">
-        <p>{children}</p>
+      <div className={`message ${self ? 'self' : 'not-self'}`}>
+        <p className={first ? 'first' : null}>{children}</p>
       </div>
     );
-  } else {
-    return (
-      <div className="message not-self">
-        <p>{children}</p>
-      </div>
-    );
-  }
+  
 };
 
 export default SelfMessage;
