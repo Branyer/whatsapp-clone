@@ -35,7 +35,7 @@ const SearchUser = ({ chats, setChats }) => {
     if (query === "") {
       getChats(userRef, setChats);
     }
-  }, [query]);
+  }, [query, setChats, userRef]);
 
   return (
     <div className="search-user">

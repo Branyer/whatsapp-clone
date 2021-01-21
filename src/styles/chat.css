@@ -11,7 +11,7 @@
 }
 
 .no-chat-selected > div > img {
-  width: 300px;
+  width: 35%;
 }
 
 .no-chat-selected > div > span {
@@ -29,9 +29,11 @@
 
 .chat {
   display: grid;
-  grid-template-rows: 60px 1fr 65px ;
+  grid-template-rows: 60px 1fr 65px;
   height: 100vh;
 }
+
+
 
 .chat__user-info {
   display: flex;
@@ -40,8 +42,8 @@
   background-color: #ededed;
 }
 
-.chat__user-info > img {
-  margin: 0 10px ;
+.user-info__image {
+  margin: 0 10px;
   border-radius: 100%;
   -webkit-border-radius: 100%;
   -moz-border-radius: 100%;
@@ -51,79 +53,105 @@
 }
 
 .chat__user-info > span {
-    font-family: Arial, Helvetica, sans-serif;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  font-family: Arial, Helvetica, sans-serif;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
+
+
 
 .chat__messages {
-
-    background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');
-    background-repeat: repeat;
-    background-size: 500px;
-    flex-basis: 80%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    z-index: 0;
-    overflow-y: auto;
-    padding-bottom: 10px;
-
+  background-repeat: repeat;
+  background-size: 500px;
+  flex-basis: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 0;
+  overflow-y: auto;
+  padding-bottom: 10px;
 }
 
-
 .chat__input-message {
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #ededed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ededed;
 }
 
 .chat__input-message > input[type="text"] {
-    width: 80%;
-    font-size: 18px;
-    padding: 10px 20px;
-    outline:none;
-    border:none;
-    border-radius: 20px;
-    -webkit-border-radius: 20px;
-    -moz-border-radius: 20px;
-    -ms-border-radius: 20px;
-    -o-border-radius: 20px;
+  width: 80%;
+  font-size: 18px;
+  padding: 10px 20px;
+  outline: none;
+  border: none;
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
 }
 
 .chat__input-message > input[type="text"]::placeholder {
-
-    color: rgb(179, 178, 178);
-
+  color: rgb(179, 178, 178);
 }
 
 .chat__input-message > input[type="submit"] {
-    width: 40px;
-    outline: none;
-    border: none;
-    height: 40px;
-    background-position: 9px center;
-    background-size: 65%;
-    background-repeat: no-repeat;
-    margin-left: 10px;
-    cursor: pointer;
-    background-color: transparent;
-    border-radius: 100%;
-    -webkit-border-radius: 100%;
-    -moz-border-radius: 100%;
-    -ms-border-radius: 100%;
-    -o-border-radius: 100%;
-    transition: background-color 0.15s ease;
-    -webkit-transition: background-color 0.15s ease;
-    -moz-transition: background-color 0.15s ease;
-    -ms-transition: background-color 0.15s ease;
-    -o-transition: background-color 0.15s ease;
+  width: 40px;
+  outline: none;
+  border: none;
+  height: 40px;
+  background-position: 9px center;
+  background-size: 65%;
+  background-repeat: no-repeat;
+  margin-left: 10px;
+  cursor: pointer;
+  background-color: transparent;
+  border-radius: 100%;
+  -webkit-border-radius: 100%;
+  -moz-border-radius: 100%;
+  -ms-border-radius: 100%;
+  -o-border-radius: 100%;
+  transition: background-color 0.15s ease;
+  -webkit-transition: background-color 0.15s ease;
+  -moz-transition: background-color 0.15s ease;
+  -ms-transition: background-color 0.15s ease;
+  -o-transition: background-color 0.15s ease;
 }
 
 .chat__input-message > input[type="submit"]:active {
-    background-color: rgb(216, 214, 214);
+  background-color: rgb(216, 214, 214);
+}
+
+
+.back-arrow {
+  margin: 0;
+  margin-left: auto;
+  margin-right: 5px;
+  width: 40px;
+  transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+  -moz-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  -o-transform: rotate(180deg);
+}
+
+@media screen and (max-width: 760px) {
+  .no-chat-selected {
+    display: none;
+  }
+
+  .chat {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 100;
+  }
+
+
+
 }

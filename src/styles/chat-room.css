@@ -2,3 +2,12 @@
     display: grid;
     grid-template-columns: 450px  1fr;
 }
+
+@media screen and (max-width:760px) {
+
+    .container__chat-room {
+
+        display: block;
+        position: relative;
+    }
+}

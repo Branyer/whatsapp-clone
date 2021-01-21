@@ -7,7 +7,7 @@ import { useRealTimeDataBaseUser } from "../hooks/useRealTimeDataBaseUser";
 import "../styles/chat-room.css";
 
 const ChatRoom = ({ user, firebase }) => {
-  const { data, loading, error, ref } = useRealTimeDataBaseUser(user, firebase);
+  const { data, loading, ref } = useRealTimeDataBaseUser(user, firebase);
   const [selectedChat, setSelectedChat] = useState(null);
 
   if (data) {

@@ -1,7 +1,15 @@
-import React, { useRef, useEffect } from "react";
+import React, { useEffect } from "react";
 import ChatPreview from "./ChatPreview";
 import "../styles/preview-chat-list.css";
 
+const handleClick = ({target}) => {
+
+ const chat = document.querySelector('.chat')
+  
+ if(chat) chat.style.zIndex = '100';
+  
+
+};
 const Chats = ({ setSelectedChat, chats, setChats, userRef }) => {
   useEffect(() => {
     userRef.child("chats").on("child_changed", (message) => {
@@ -32,15 +40,13 @@ const Chats = ({ setSelectedChat, chats, setChats, userRef }) => {
             return;
           }
 
-            let auxChat = { key: chat.key };
+          let auxChat = { key: chat.key };
 
-            chat.forEach((p) => {
-              chat[p.key] = p.val();
-            });
+          chat.forEach((p) => {
+            chat[p.key] = p.val();
+          });
 
-
-            setChats((actChats) => [auxChat,...actChats]);
-
+          setChats((actChats) => [auxChat, ...actChats]);
         });
 
         // console.log(chat.val());
@@ -57,9 +63,10 @@ const Chats = ({ setSelectedChat, chats, setChats, userRef }) => {
         chats.map(
           ({ key, username, last_message, profile_picture, partnerId }) => (
             <ChatPreview
-              onClick={(e) =>
-                setSelectedChat({ key, username, profile_picture, partnerId })
-              }
+              onClick={(e) => {
+                setSelectedChat({ key, username, profile_picture, partnerId });
+                handleClick(e);
+              }}
               key={key}
               chatId={key}
               avatar={profile_picture}

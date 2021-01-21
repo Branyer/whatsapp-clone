@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext, useRef } from "react";
 import { UserContext } from "../UserContext";
 import Message from "./Message";
+import background from "../images/whatsapp-background.jpg" 
 
 const ChatMessages = React.memo(({ selectedChat }) => {
   const { key: chatId } = selectedChat;
@@ -66,7 +67,7 @@ const ChatMessages = React.memo(({ selectedChat }) => {
   }, [selectedChat, chatId, firebase]);
 
   return (
-    <div className="chat__messages" ref={refMessages}>
+    <div className="chat__messages" ref={refMessages} style={{backgroundImage: `url('${background}')`}}>
       {messages &&
         messages.map((m, index) => {
           let first = false;
