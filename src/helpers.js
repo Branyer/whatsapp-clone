@@ -110,7 +110,7 @@ export const sendMessage = (
       .push().key;
 
     updates[`chats/${newChatId}`] = newChat;
-    setSelectedChat({ key: newChatId, username, profile_picture, partnerId })
+    // setSelectedChat({ key: newChatId, partnerUsername, chatProfilePicture, partnerId })
     firebase.database().ref().update(updates).then((e) => {
 
       let updates={};

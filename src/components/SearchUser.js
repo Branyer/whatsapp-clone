@@ -9,7 +9,7 @@ import { getChats } from "../helpers";
 const searchUser = (e, query, chats, setChats, firebase) => {
   e.preventDefault();
 
-  const auxQuery = query.replace(".", "-");
+  const auxQuery = query.replace(".", "-").toLowerCase();
 
   let index = chats.findIndex((c) => c?.partnerId === auxQuery);
 
@@ -18,9 +18,11 @@ const searchUser = (e, query, chats, setChats, firebase) => {
       .database()
       .ref("users")
       .orderByChild("email")
-      .equalTo(query)
+      .equalTo(query.toLowerCase())
       .once("value", (snap) => {
-        setChats([{...snap.val()[auxQuery], key:'new-chat', last_message:"Start a new chat", partnerId:auxQuery}])
+        if(snap.val()) {
+          setChats([{...snap.val()[auxQuery], key:'new-chat', last_message:"Start a new chat", partnerId:auxQuery}])
+        }
        
       });
   } else setChats([chats[index]]);

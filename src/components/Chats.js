@@ -34,19 +34,26 @@ const Chats = ({ setSelectedChat, chats, setChats, userRef }) => {
       })
       .then((count) => {
         userRef.child("chats").on("child_added", (chat) => {
-          console.log(count);
           if (count > 0) {
             count--;
             return;
           }
 
           let auxChat = { key: chat.key };
-
+          
           chat.forEach((p) => {
-            chat[p.key] = p.val();
+            auxChat[p.key] = p.val();
           });
 
-          setChats((actChats) => [auxChat, ...actChats]);
+          console.log(auxChat)
+
+          if(chats[0].key === "new-chat"){
+            setChats([auxChat]);
+            setSelectedChat(auxChat);
+          } else {
+            setChats((actChats) => [auxChat, ...actChats]);
+          }
+
         });
 
         // console.log(chat.val());

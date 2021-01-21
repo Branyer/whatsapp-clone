@@ -9,18 +9,16 @@ const ChatMessages = React.memo(({ selectedChat }) => {
   const [messages, setMessages] = useState(null);
 
   const refMessages = useRef(null);
-  const flag = useRef(true)
 
   useEffect(() => {
-    if (messages && flag.current) {
+  
       refMessages.current.scrollTo({
         left: 0,
         top: refMessages.current.scrollHeight,
         behavior: "smooth",
       });
-      flag.current = false;
-    }
-  });
+    
+  }, [messages]);
 
   useEffect(() => {
     if (chatId === "new-chat") {
@@ -36,7 +34,6 @@ const ChatMessages = React.memo(({ selectedChat }) => {
           data.forEach((message) => {
             auxMessages.push({ ...message.val(), key: message.key });
           });
-          flag.current = true;
           setMessages(auxMessages);
           return auxMessages.length;
         })
