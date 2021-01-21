@@ -1,9 +1,8 @@
-import React, { useContext, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import ChatPreview from "./ChatPreview";
 import "../styles/preview-chat-list.css";
 
-const Chats = ({ setSelectedChat,chats, setChats,userRef }) => {
-
+const Chats = ({ setSelectedChat, chats, setChats, userRef }) => {
   useEffect(() => {
     userRef.child("chats").on("child_changed", (message) => {
       if (chats) {
@@ -14,10 +13,38 @@ const Chats = ({ setSelectedChat,chats, setChats,userRef }) => {
         const index = auxChat.findIndex((e) => e.key === data.key);
 
         auxChat[index] = data;
-
+        auxChat.sort((a, b) => b.timestamp - a.timestamp);
         setChats(auxChat);
       }
     });
+
+    userRef
+      .child("chats")
+      .once("value")
+      .then((data) => {
+        return data.numChildren();
+      })
+      .then((count) => {
+        userRef.child("chats").on("child_added", (chat) => {
+          console.log(count);
+          if (count > 0) {
+            count--;
+            return;
+          }
+
+            let auxChat = { key: chat.key };
+
+            chat.forEach((p) => {
+              chat[p.key] = p.val();
+            });
+
+
+            setChats((actChats) => [auxChat,...actChats]);
+
+        });
+
+        // console.log(chat.val());
+      });
 
     return () => {
       userRef.child("chats").off();

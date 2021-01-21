@@ -1,28 +1,16 @@
-import React, {useContext} from 'react'
-import '../styles/chat-preview.css'
-import {UserContext} from '../UserContext'
+import React from "react";
+import "../styles/chat-preview.css";
 
-const ChatPreview = ({chatId, avatar, last_message, username, onClick}) => {
+const ChatPreview = ({ chatId, avatar, last_message, username, onClick }) => {
+  return (
+    <li className="chat-preview" onClick={onClick}>
+      <img alt={username} src={avatar}></img>
+      <div>
+        <span>{username}</span>
+        <span>{last_message}</span>
+      </div>
+    </li>
+  );
+};
 
-    const { firebase } = useContext(UserContext);
-
-    
-    //TODO conectar con mensajes
-    //   firebase.database().ref(`chats/${chatId}/messages`).on('child_added', (data) => {
-
-    //     console.log(data.val());
-
-    //   });
-
-    return (
-        <li className="chat-preview" onClick={onClick}>
-            <img alt={username} src={avatar}></img>
-            <div>
-                <span>{username}</span>
-                <span>{last_message}</span>
-            </div>
-        </li>
-    )
-}
-
-export default ChatPreview
+export default ChatPreview;
