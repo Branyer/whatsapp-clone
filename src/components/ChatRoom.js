@@ -16,7 +16,7 @@ const ChatRoom = ({ user, firebase }) => {
         <UserContext.Provider value={{...data, firebase, userRef: ref}}>
           <div className="container__chat-room">
             <SideChatBar setSelectedChat={setSelectedChat}/>
-            <Chat selectedChat={selectedChat}/>
+            <Chat selectedChat={selectedChat} setSelectedChat={setSelectedChat}/>
           </div>
         </UserContext.Provider>
       </>

@@ -65,7 +65,8 @@ export const sendMessage = (
   chatProfilePicture,
   partnerId,
   partnerUsername,
-  firebase
+  firebase,
+  setSelectedChat
 ) => {
   if (!message) return;
 
@@ -109,6 +110,7 @@ export const sendMessage = (
       .push().key;
 
     updates[`chats/${newChatId}`] = newChat;
+    setSelectedChat({ key: newChatId, username, profile_picture, partnerId })
     firebase.database().ref().update(updates).then((e) => {
 
       let updates={};
@@ -136,7 +138,8 @@ export const handleSubmitMessage = (
   selectedChat,
   context,
   setMessage,
-  message
+  message,
+  setSelectedChat
 ) => {
   e.preventDefault();
   sendMessage(
@@ -149,7 +152,8 @@ export const handleSubmitMessage = (
     selectedChat.profile_picture,
     selectedChat.partnerId,
     selectedChat.username,
-    context.firebase
+    context.firebase,
+    setSelectedChat
   );
 
   setMessage("");

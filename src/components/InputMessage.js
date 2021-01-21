@@ -3,14 +3,14 @@ import sendSVG from "../images/send.svg";
 import { UserContext } from "../UserContext";
 import { handleSubmitMessage } from "../helpers";
 
-const InputMessage = ({ selectedChat, setMessage, message }) => {
+const InputMessage = ({ selectedChat, setMessage, message, setSelectedChat }) => {
   const context = useContext(UserContext);
 
   return (
     <form
       className="chat__input-message"
       onSubmit={(e) =>
-        handleSubmitMessage(e, selectedChat, context, setMessage, message)
+        handleSubmitMessage(e, selectedChat, context, setMessage, message, setSelectedChat)
       }
     >
       <input

@@ -10,6 +10,9 @@
 
 # production
 /build
+.firebaserc
+firebase.json
+*.cache
 
 # misc
 .DS_Store
@@ -18,9 +21,6 @@
 .env.test.local
 .env.production.local
 .eslintcache
-.firebaserc
-firebase.json
-*.cache
 *.log
 
 npm-debug.log*

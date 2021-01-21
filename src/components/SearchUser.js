@@ -21,11 +21,7 @@ const searchUser = (e, query, chats, setChats, firebase) => {
       .equalTo(query)
       .once("value", (snap) => {
         setChats([{...snap.val()[auxQuery], key:'new-chat', last_message:"Start a new chat", partnerId:auxQuery}])
-        // selectedChat.key,
-        // selectedChat.profile_picture,
-        // selectedChat.partnerId,
-        // selectedChat.username,
-
+       
       });
   } else setChats([chats[index]]);
 };

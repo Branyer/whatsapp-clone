@@ -23,6 +23,9 @@ const ChatMessages = React.memo(({ selectedChat }) => {
 
   useEffect(() => {
     if (chatId === "new-chat") {
+
+      setMessages([]);
+
     } else {
       firebase.database().ref(`chats/${chatId}/messages`)
         .once("value")
@@ -60,7 +63,7 @@ const ChatMessages = React.memo(({ selectedChat }) => {
     return () => {
       firebase.database().ref(`chats/${chatId}/messages`).off();
     };
-  }, [selectedChat, chatId]);
+  }, [selectedChat, chatId, firebase]);
 
   return (
     <div className="chat__messages" ref={refMessages}>
