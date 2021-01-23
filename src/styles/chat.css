@@ -33,8 +33,6 @@
   height: 100vh;
 }
 
-
-
 .chat__user-info {
   display: flex;
   align-items: center;
@@ -58,8 +56,6 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-
-
 
 .chat__messages {
   background-repeat: repeat;
@@ -125,7 +121,6 @@
   background-color: rgb(216, 214, 214);
 }
 
-
 .back-arrow {
   margin: 0;
   margin-left: auto;
@@ -136,11 +131,16 @@
   -moz-transform: rotate(180deg);
   -ms-transform: rotate(180deg);
   -o-transform: rotate(180deg);
+  display: none;
 }
 
 @media screen and (max-width: 760px) {
   .no-chat-selected {
     display: none;
+  }
+
+  .back-arrow {
+    display: block;
   }
 
   .chat {
@@ -151,7 +151,4 @@
     height: 100vh;
     z-index: 100;
   }
-
-
-
 }
